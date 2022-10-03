@@ -8,7 +8,15 @@ Matthew Kuchak
 Maritza Mateo
 %} 
 
-load("COVIDbyCounty.mat");         
+load("COVIDbyCounty.mat"); 
+
+finding_training = randperm(225,175);
+finding_training = sort(finding_training,175);
+
+
+Training_data_1 = CNTY_COVID(finding_training,:);
+
+
 
 div_1_covid = CNTY_COVID(CNTY_CENSUS.DIVISION == 1,:);
 div_1_census = CNTY_CENSUS(CNTY_CENSUS.DIVISION == 1,:);
@@ -29,7 +37,7 @@ div_8_census = CNTY_CENSUS(CNTY_CENSUS.DIVISION == 8,:);
 div_9_covid = CNTY_COVID(CNTY_CENSUS.DIVISION == 9,:);
 div_9_census = CNTY_CENSUS(CNTY_CENSUS.DIVISION == 9,:);
 
-[cluster_9, centroid] = kmeans(CNTY_COVID,9,'Replicates',10);   %creates 9 clusters and their centroids
+[cluster_9, centroid] = kmeans(Training_data_1,9,'Replicates',10);   %creates 9 clusters and their centroids
 
 %define groups by name and non covid data
 cntygroup_1 = CNTY_CENSUS(cluster_9 == 1,:);
@@ -43,22 +51,22 @@ cntygroup_8 = CNTY_CENSUS(cluster_9 == 8,:);
 cntygroup_9 = CNTY_CENSUS(cluster_9 == 9,:);
 
 %define groups by covid data
-covidgroup_1 = CNTY_COVID(cluster_9 == 1,:);
-covidgroup_2 = CNTY_COVID(cluster_9 == 2,:);
-covidgroup_3 = CNTY_COVID(cluster_9 == 3,:);
-covidgroup_4 = CNTY_COVID(cluster_9 == 4,:);
-covidgroup_5 = CNTY_COVID(cluster_9 == 5,:);
-covidgroup_6 = CNTY_COVID(cluster_9 == 6,:);
-covidgroup_7 = CNTY_COVID(cluster_9 == 7,:);
-covidgroup_8 = CNTY_COVID(cluster_9 == 8,:);
-covidgroup_9 = CNTY_COVID(cluster_9 == 9,:);
+covidgroup_1 = Training_data_1(cluster_9 == 1,:);
+covidgroup_2 = Training_data_1(cluster_9 == 2,:);
+covidgroup_3 = Training_data_1(cluster_9 == 3,:);
+covidgroup_4 = Training_data_1(cluster_9 == 4,:);
+covidgroup_5 = Training_data_1(cluster_9 == 5,:);
+covidgroup_6 = Training_data_1(cluster_9 == 6,:);
+covidgroup_7 = Training_data_1(cluster_9 == 7,:);
+covidgroup_8 = Training_data_1(cluster_9 == 8,:);
+covidgroup_9 = Training_data_1(cluster_9 == 9,:);
 
 %issue so far: some clusters has multiple divisions rather than only one
 %              common division
 
-% For referencing what a Division looks like (to comment out code,
-% highlight all code you wish to commentout and press Ctrl+R
-
+% Code is for referencing what a Division looks like 
+% (to comment out code, highlight all code you wish to comment out
+% and press Ctrl+R)
 New_Eng_CNTYNAME = CNTY_CENSUS(CNTY_CENSUS.DIVISION == 1,"CTYNAME");
 New_Eng_COVID = CNTY_COVID(CNTY_CENSUS.DIVISION == 1,:);
 
@@ -70,13 +78,12 @@ figure;
 subplot(2,1,1);
 plot(dates,New_Eng_COVID);
 title("New England Covid Cases");
-xlabel("Date");
-ylabel("Cases");
+
+ylabel("New weekly cases per 100k population","FontSize",10);
 legend(New_Eng_CNTYNAME.Variables);
 
 subplot(2,1,2);
 plot(dates,Mid_Atl_COVID);
 title("Middle Atlantic Covid Cases");
-xlabel("Date");
-ylabel("Cases");
-legend(Mid_Atl_CNTYNAME.Variables);
+ylabel("New weekly cases per 100k population");
+legend(Mid_Atl_CNTYNAME.Variables,"FontSize",10);
