@@ -79,11 +79,11 @@ subplot(2,1,1);
 plot(dates,New_Eng_COVID);
 title("New England Covid Cases");
 
-ylabel("New weekly cases per 100k population","FontSize",10);
-legend(New_Eng_CNTYNAME.Variables);
+ylabel("New weekly cases per 100k population");
+legend(New_Eng_CNTYNAME.Variables, "FontSize",6, "FontWeight","bold");
 
 subplot(2,1,2);
 plot(dates,Mid_Atl_COVID);
 title("Middle Atlantic Covid Cases");
 ylabel("New weekly cases per 100k population");
-legend(Mid_Atl_CNTYNAME.Variables,"FontSize",10);
+legend(Mid_Atl_CNTYNAME.Variables,"FontSize",6, "FontWeight","bold");
