@@ -13,10 +13,7 @@ load("COVIDbyCounty.mat");
 finding_training = randperm(225,175);
 finding_training = sort(finding_training,175);
 
-
 Training_data_1 = CNTY_COVID(finding_training,:);
-
-
 
 div_1_covid = CNTY_COVID(CNTY_CENSUS.DIVISION == 1,:);
 div_1_census = CNTY_CENSUS(CNTY_CENSUS.DIVISION == 1,:);
@@ -61,10 +58,27 @@ covidgroup_7 = Training_data_1(cluster_9 == 7,:);
 covidgroup_8 = Training_data_1(cluster_9 == 8,:);
 covidgroup_9 = Training_data_1(cluster_9 == 9,:);
 
-%issue so far: some clusters has multiple divisions rather than only one
-%              common division
+%%
+%Graph outputs for visualization of data
 
-% Code is for referencing what a Division looks like 
+cntyname_g1 = cntygroup_1(:,"DIVISION");
+cntyname_g2 = cntygroup_2(:,"DIVISION");
+
+figure;
+hold on;
+
+subplot(1,2,1);
+plot(dates, covidgroup_1);
+title("K-Means Group 1 Covid Cases");
+legend(num2str(cntyname_g1.Variables), "FontSize",6, "FontWeight","bold");
+
+
+subplot(1,2,2);
+plot(dates, covidgroup_2);
+title("K-Means Group 2 Covid Cases");
+legend(num2str(cntyname_g2.Variables), "FontSize",6, "FontWeight","bold");
+
+% Code below is for referencing what a Division looks like 
 % (to comment out code, highlight all code you wish to comment out
 % and press Ctrl+R)
 New_Eng_CNTYNAME = CNTY_CENSUS(CNTY_CENSUS.DIVISION == 1,"CTYNAME");
@@ -74,15 +88,15 @@ Mid_Atl_CNTYNAME = CNTY_CENSUS(CNTY_CENSUS.DIVISION == 2,"CTYNAME");
 Mid_Atl_COVID = CNTY_COVID(CNTY_CENSUS.DIVISION == 2,:);
 
 figure;
-
-subplot(2,1,1);
+hold on;
+subplot(1,2,1);
 plot(dates,New_Eng_COVID);
 title("New England Covid Cases");
 
 ylabel("New weekly cases per 100k population");
 legend(New_Eng_CNTYNAME.Variables, "FontSize",6, "FontWeight","bold");
 
-subplot(2,1,2);
+subplot(1,2,2);
 plot(dates,Mid_Atl_COVID);
 title("Middle Atlantic Covid Cases");
 ylabel("New weekly cases per 100k population");
