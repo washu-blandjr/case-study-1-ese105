@@ -86,9 +86,8 @@ plot(dates, covidgroup_2);
 title("K-Means Group 2 Covid Cases");
 legend(num2str(cntyname_g2.Variables), "FontSize",6, "FontWeight","bold");
 ylabel("New weekly cases per 100k population");
+
 % Code below is for referencing what a Division looks like 
-% (to comment out code, highlight all code you wish to comment out
-% and press Ctrl+R)
 New_Eng_CNTYNAME = CNTY_CENSUS(CNTY_CENSUS.DIVISION == 1,"CTYNAME");
 New_Eng_COVID = CNTY_COVID(CNTY_CENSUS.DIVISION == 1,:);
 
@@ -109,3 +108,6 @@ plot(dates,Mid_Atl_COVID);
 title("Middle Atlantic Covid Cases");
 ylabel("New weekly cases per 100k population");
 legend(Mid_Atl_CNTYNAME.Variables,"FontSize",6, "FontWeight","bold");
+
+writetable(cntygroup_2,"cntygroup_2.csv");
+writetable(div_2_census,"div_2_census.csv");
