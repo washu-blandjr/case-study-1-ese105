@@ -60,6 +60,13 @@ covidgroup_9 = Training_data_1(cluster_9 == 9,:);
 
 %%
 %Graph outputs for visualization of data
+figure;
+hold on;
+
+%Sample centroid
+plot(dates, centroid(1,:));
+title("Centroid 1 Covid Cases");
+ylabel("New weekly cases per 100k population");
 
 cntyname_g1 = cntygroup_1(:,"DIVISION");
 cntyname_g2 = cntygroup_2(:,"DIVISION");
@@ -67,17 +74,18 @@ cntyname_g2 = cntygroup_2(:,"DIVISION");
 figure;
 hold on;
 
+%Sample K-means groups
 subplot(1,2,1);
 plot(dates, covidgroup_1);
 title("K-Means Group 1 Covid Cases");
 legend(num2str(cntyname_g1.Variables), "FontSize",6, "FontWeight","bold");
-
+ylabel("New weekly cases per 100k population");
 
 subplot(1,2,2);
 plot(dates, covidgroup_2);
 title("K-Means Group 2 Covid Cases");
 legend(num2str(cntyname_g2.Variables), "FontSize",6, "FontWeight","bold");
-
+ylabel("New weekly cases per 100k population");
 % Code below is for referencing what a Division looks like 
 % (to comment out code, highlight all code you wish to comment out
 % and press Ctrl+R)
